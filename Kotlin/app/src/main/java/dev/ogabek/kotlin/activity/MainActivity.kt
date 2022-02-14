@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.ogabek.kotlin.R
 import dev.ogabek.kotlin.adapter.BookAdapter
+import dev.ogabek.kotlin.adapter.DepartmentAdapter
 import dev.ogabek.kotlin.adapter.EssentialAdapter
 import dev.ogabek.kotlin.adapter.ImageAdapter
 import dev.ogabek.kotlin.model.Book
+import dev.ogabek.kotlin.model.Department
 import dev.ogabek.kotlin.model.Essential
 import dev.ogabek.kotlin.model.Image
 
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rv_fashion: RecyclerView
     private lateinit var rv_popular: RecyclerView
     private lateinit var rv_books: RecyclerView
+    private lateinit var rv_deployment: RecyclerView
     private lateinit var fashion: LinearLayout
     private lateinit var popular: LinearLayout
 
@@ -37,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         rv_fashion = findViewById(R.id.rv_ll_fashion)
         rv_popular = findViewById(R.id.rv_ll_popular)
         rv_books = findViewById(R.id.rv_books)
+        rv_deployment = findViewById(R.id.rv_departments)
         fashion = findViewById(R.id.ll_fashion)
         popular = findViewById(R.id.ll_popular)
         val manager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -44,8 +48,10 @@ class MainActivity : AppCompatActivity() {
         rv_fashion.layoutManager = GridLayoutManager(this, 2)
         rv_popular.layoutManager = GridLayoutManager(this, 2)
         rv_books.layoutManager = GridLayoutManager(this, 1)
+        rv_deployment.layoutManager = GridLayoutManager(this, 2)
         rv_popular.adapter = ImageAdapter(this, getPopular())
         rv_fashion.adapter = ImageAdapter(this, getFashion())
+        rv_deployment.adapter = DepartmentAdapter(getDepartments())
         rv_books.adapter = BookAdapter(books())
         refreshAdapter(recyclerView, essentials())
         setLinearHeight(fashion)
@@ -119,6 +125,17 @@ class MainActivity : AppCompatActivity() {
         books.add(Book(R.drawable.book_wabi_sabi, "Wabi Sabi", 3.55f, 7.99f))
         books.add(Book(R.drawable.book_thinking_fast_and_slow, "Think fast and slow", 4.59f, 7.99f))
         return books
+    }
+
+    private fun getDepartments(): List<Department> {
+        val department: MutableList<Department> = java.util.ArrayList<Department>()
+        department.add(Department(R.drawable.department_beauty, "Beauty"))
+        department.add(Department(R.drawable.department_clothes, "Clothes"))
+        department.add(Department(R.drawable.department_sport, "Sport"))
+        department.add(Department(R.drawable.department_technology, "Technology"))
+        department.add(Department(R.drawable.department_pet_supplies, "Pet and Supplies"))
+        department.add(Department(R.drawable.department_home_and_kitchen, "Home and Kitchen"))
+        return department
     }
 
 }
